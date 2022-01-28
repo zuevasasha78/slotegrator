@@ -1,0 +1,4 @@
+# Project exclude paths
+/.gradle/
+/apiTest/build/
+/apiTest/build/classes/java/test/

@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'io.qameta.allure' version '2.5'
+    id("org.gradle.test-retry") version "1.3.1"
+}
+
+allure {
+    autoconfigure = true
+    version = '2.7.0'
+    useJUnit5 {
+        version = '2.7.0'
+    }
+}
+sourceCompatibility = 1.8
+repositories {
+    jcenter()
+    mavenCentral()
+}
+dependencies {
+    //junit5
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.7'
+
+    //restassured
+    implementation("io.rest-assured:rest-assured:4.4.0")
+    implementation("io.rest-assured:kotlin-extensions:4.4.0")
+
+    //allure
+    implementation("io.qameta.allure:allure-rest-assured:2.17.2")
+    implementation("io.qameta.allure:allure-junit5:2.17.2")
+    implementation("com.github.automatedowl:allure-environment-writer:1.0.0")
+
+    //other
+    implementation("org.everit.json:org.everit.json.schema:1.5.1")
+
+    //assertions
+    testImplementation("org.assertj:assertj-core:3.21.0")
+
+    //lombok
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    implementation 'org.projectlombok:lombok:1.18.16'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+}
+test {
+    useJUnitPlatform()
+}

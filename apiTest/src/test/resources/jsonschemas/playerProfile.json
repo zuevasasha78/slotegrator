@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "title": "The root schema",
+  "examples": [
+    {
+      "id": 9384,
+      "country_id": null,
+      "timezone_id": null,
+      "username": "player495205",
+      "email": "508495@gmail.com",
+      "name": null,
+      "surname": null,
+      "gender": null,
+      "phone_number": null,
+      "birthdate": null,
+      "bonuses_allowed": true,
+      "is_verified": false
+    }
+  ],
+  "required": [
+    "id",
+    "country_id",
+    "timezone_id",
+    "username",
+    "email",
+    "name",
+    "surname",
+    "gender",
+    "phone_number",
+    "birthdate",
+    "bonuses_allowed",
+    "is_verified"
+  ],
+  "properties": {
+    "id": {
+      "$id": "#/properties/id",
+      "type": "integer",
+      "title": "The id schema",
+      "examples": [
+        9384
+      ]
+    },
+    "country_id": {
+      "$id": "#/properties/country_id",
+      "type": "null",
+      "title": "The country_id schema",
+      "examples": [
+        null
+      ]
+    },
+    "timezone_id": {
+      "$id": "#/properties/timezone_id",
+      "type": "null",
+      "title": "The timezone_id schema",
+      "examples": [
+        null
+      ]
+    },
+    "username": {
+      "$id": "#/properties/username",
+      "type": "string",
+      "title": "The username schema",
+      "examples": [
+        "player495205"
+      ]
+    },
+    "email": {
+      "$id": "#/properties/email",
+      "type": "string",
+      "title": "The email schema",
+      "examples": [
+        "508495@gmail.com"
+      ]
+    },
+    "name": {
+      "$id": "#/properties/name",
+      "type": "null",
+      "title": "The name schema",
+      "examples": [
+        null
+      ]
+    },
+    "surname": {
+      "$id": "#/properties/surname",
+      "type": "null",
+      "title": "The surname schema",
+      "examples": [
+        null
+      ]
+    },
+    "gender": {
+      "$id": "#/properties/gender",
+      "type": "null",
+      "title": "The gender schema",
+      "examples": [
+        null
+      ]
+    },
+    "phone_number": {
+      "$id": "#/properties/phone_number",
+      "type": "null",
+      "title": "The phone_number schema",
+      "examples": [
+        null
+      ]
+    },
+    "birthdate": {
+      "$id": "#/properties/birthdate",
+      "type": "null",
+      "title": "The birthdate schema",
+      "examples": [
+        null
+      ]
+    },
+    "bonuses_allowed": {
+      "$id": "#/properties/bonuses_allowed",
+      "type": "boolean",
+      "title": "The bonuses_allowed schema",
+      "examples": [
+        true
+      ]
+    },
+    "is_verified": {
+      "$id": "#/properties/is_verified",
+      "type": "boolean",
+      "title": "The is_verified schema",
+      "examples": [
+        false
+      ]
+    }
+  },
+  "additionalProperties": true
+}
