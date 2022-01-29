@@ -23,7 +23,7 @@ public class DataHelper {
         return response.body().jsonPath().getString("access_token");
     }
 
-    @Step("Создать играка")
+    @Step("Создать игрока")
     public static Player createPlayer() {
         CreatePlayerRequest playerRequest = CreatePlayerRequest.builder().build();
         Response response = requestSpec()
@@ -37,7 +37,7 @@ public class DataHelper {
         return player;
     }
 
-    @Step("Получить auth_token играка")
+    @Step("Получить auth_token игрока")
     public static String getPlayerAuthToken(Player newPlayer) {
         AccessTokenRequest requestBody = AccessTokenRequest.builder()
                 .username(newPlayer.getUsername())
