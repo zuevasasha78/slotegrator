@@ -1,71 +1,70 @@
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.8.1'
- //   id "se.thinkcode.cucumber-runner" version "0.0.8"
-}
-
-group 'com.slotegrator'
-version '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
-
-ext {
-    allureVersion = '2.13.6'
-    junitVersion = '5.7.0'
+    id 'maven'
 }
 
 sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
+def cucumberVersion = '4.8.1'
+def allureVersion = '2.8.1'
+def allurePluginVersion = '2.13.3'
+def aspectjversion = '1.9.5'
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
 
 dependencies {
-    //selenium
-    implementation('org.seleniumhq.selenium:selenium-java:3.141.59')
-    implementation('io.github.bonigarcia:webdrivermanager:4.2.0')
+    compile "io.cucumber:cucumber-java:${cucumberVersion}"
+    compile "io.cucumber:cucumber-junit:${cucumberVersion}"
+    compile group: 'io.qameta.allure', name: 'allure-cucumber4-jvm', version: "${allurePluginVersion}"
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: "${aspectjversion}"
+    compile 'org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M5'
 
-    //cucumber
-    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.1.0'
-    implementation 'io.cucumber:cucumber-java:7.1.0'
-    testImplementation 'io.cucumber:cucumber-junit:7.1.0'
+    compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    compile 'io.github.bonigarcia:webdrivermanager:4.2.0'
 
-    //log
-    testImplementation('org.slf4j:slf4j-simple:1.7.29')
-
-    //junit5
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-
-    //assertions
-    testImplementation("org.assertj:assertj-core:3.21.0")
+    compile 'org.assertj:assertj-core:3.17.1'
 }
 
 test {
     useJUnitPlatform()
 }
-allure {
-    autoconfigure = true
-    version = "${allureVersion}"
 
-    useJUnit5 {
-        version = "${allureVersion}"
-    }
-}
-
-/*
 configurations {
     cucumberRuntime {
-        extendsFrom testImplementation
+        extendsFrom compile
     }
 }
 
-task cucumberCli() {
-    dependsOn assemble, testClasses
+test {
+    jvmArgs "javaagent:org/aspectj/aspectjweaver/${aspectjversion}/aspectjweaver-${aspectjversion}.jar\"\n" +
+            "-Dcucumber.options=\"--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm\""
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
     doLast {
         javaexec {
+            systemProperty("allure.results.directory", "build/allure-results")
+
             main = "io.cucumber.core.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['src/test/resources']
+            args = ['--plugin', 'pretty',
+                    '--plugin', 'io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm',
+                    '--glue',
+                    'com.slotegrator.webTest', 'src/test/resources']
         }
     }
-}*/
+}
+
+allure {
+    version = allureVersion
+    autoconfigure = true
+    aspectjweaver = true
+}
+
+cucumber.finalizedBy 'allureReport'
